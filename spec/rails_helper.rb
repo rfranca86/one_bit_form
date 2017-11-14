@@ -9,6 +9,10 @@ require 'rspec/rails'
 # Da o loading, faz o require de todos os arquivos que estao dentro de spec/support
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
+# Custom json helpers
+config.include Requests::JsonHelpers, type: :request
+# Custom Header helpers
+config.include Requests::HeaderHelpers, type: :request
 # adicionando a linha abaixo consigo nos testes gerar token para autenticar o user 
 config.include Devise:Test:ControllerHelpers, type: :controller
 
