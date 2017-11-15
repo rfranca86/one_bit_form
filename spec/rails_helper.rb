@@ -6,15 +6,8 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-# Da o loading, faz o require de todos os arquivos que estao dentro de spec/support
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-# Custom json helpers
-config.include Requests::JsonHelpers, type: :request
-# Custom Header helpers
-config.include Requests::HeaderHelpers, type: :request
-# adicionando a linha abaixo consigo nos testes gerar token para autenticar o user 
-config.include Devise:Test:ControllerHelpers, type: :controller
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -36,6 +29,12 @@ config.include Devise:Test:ControllerHelpers, type: :controller
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  # Custom json helpers
+  config.include Requests::JsonHelpers, type: :request
+  # Custom Header helpers
+  config.include Requests::HeaderHelpers, type: :request
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -51,7 +50,7 @@ RSpec.configure do |config|
   # You can disable this behaviour by removing the line below, and instead
   # explicitly tag your specs with their type, e.g.:
   #
-  #     RSpec.describe UsersController, :type => :controller do
+  #     RSpec.describe UsersController, :type =&gt; :controller do
   #       # ...
   #     end
   #
