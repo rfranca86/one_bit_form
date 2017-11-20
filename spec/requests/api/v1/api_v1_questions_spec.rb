@@ -80,7 +80,7 @@ RSpec.describe "Api::V1::Questions", type: :request do
             @form = create(:form, user: @user)
             @question = create(:question, form: @form)
             @question_attributes = attributes_for(:question, id: @question.id)
-            put "/api/v1/questions/#{@questi on.id}", params: {question: @question_attributes}, headers: header_with_authentication(@user)
+            put "/api/v1/questions/#{@question.id}", params: {question: @question_attributes}, headers: header_with_authentication(@user)
           end
 
           it "returns 200" do
