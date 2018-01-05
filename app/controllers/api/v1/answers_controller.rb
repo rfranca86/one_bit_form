@@ -5,8 +5,8 @@ before_action :set_form
 before_action :allow_only_owner, only: [:index, :show, :destroy]
 
 def index
-  @answers = @form.answers
-  render json: @answers, include: 'questions_answers'
+  @questions = @form.questions
+  render json: @questions, include: 'questions_answers'
 end
 
 def show
